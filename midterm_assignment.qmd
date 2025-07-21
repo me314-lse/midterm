@@ -1,0 +1,292 @@
+---
+title: "Mid-Term Assignment"
+subtitle: "LSE ME314: Introduction to Data Science and Machine Learning"
+date-modified: "21 July 2025" 
+toc: true
+format: html
+execute:
+  echo: true
+  eval: true
+---
+
+## Submission Instructions
+
+This assignment is due **Wednesday 23rd of July 2025 at 9am**:
+
+- Please submit this assignment via the submission portal on Moodle.
+
+- Please submit your assignment as both a knitted .html file and the corresponding .qmd file; PDFs or other formats will not be accepted. You must name the files accordingly: "ME314_midterm_XXXXXXXXX" where XXXXXXXXX should be replaced with your LSE candidate number. The candidate number is your LSE ID number (not your Library number). 
+
+- We will assess your assignment based on how well you apply the methods and reasoning introduced during our lectures and seminar sessions.
+
+*Please note, we will not contact you to recompile documents if they are submitted in the wrong format. It is your responsibility to ensure you submit your work correctly. Failure to do so will result in a mark of 0 for that assignment.*
+
+*You are expected to complete this problem set yourself without excessive use of generative AI. You should use sample code from seminars and lectures, and adapt it to the questions below on your own. You may consult generative AI to answer general questions and/or supplement your learning, but not to complete the exercises. Markers have lots of experience reviewing student work, and they can usually tell when generative AI substantially completed an assignment. If we suspect you have done this, we will mark your answers accordingly.*
+  
+## Introduction
+
+This is a *summative* assignment, and will constitute 25% of your final grade. You should use feedback from seminars to ensure you meet both the substantive and formatting standards for this module.
+
+For clarity, the formatting requirements for this assignment are:
+
+- Unless otherwise stated, you must present all results in full sentences, as you would in a report or academic piece of writing. Keep it as concise as possible!
+
+- If the exercise requires generating a table or figure, you should include at least one sentence introducing and explaining it. E.g. "The table below reports the counts of Wikipedia articles mentioning the LSE, by type of article."
+
+- Unless stated otherwise, all code used to answer the exercises should be included in the code chunks for each exercise. 
+
+- All code should be annotated with comments, to help the marker understand what you have done.
+
+- Your output should be replicable and results should be reproducible. Any result/table/figure that cannot be traced back to your code will not be marked.
+
+
+### Question 1: Data and Programming (10 Marks)
+
+This question is designed to test your ability to (1) load and clean data, (2) summarise and transform data, (3) perform simple for-loop operations with programming, and, (4) devise control flows. 
+
+**1.1 Loading and cleaning data:**
+
+- Set the random seed to 123. The code is included. This is for reproducibility and must be executed for consistent reproduction of the same outputs. 
+
+- After this, load the `airquality` dataset, which is built-in with R. Inspect the structure of the dataframe with `str()`.
+
+- Next, drop all rows in which any column contains an NA value.
+
+- After this, remove all rows where the value of `Ozone` is more than 2 standard deviations __above__ the mean `Ozone` level in our dataset. Name this new dataframe `aq_clean`. 
+
+- Finally, use the `dim()` function to print the dimensions of the `aq_clean` dataframe. How many rows are remaining?
+
+```{r}
+# Set seed for reproducibility
+set.seed(123)
+```
+
+
+```{r}
+data("airquality")
+aq <- airquality
+# write your code answer here
+```
+
+::: {.callout-tip title = "Answer" collapse="true"}
+**Answer**:
+# write your text answer here
+:::
+
+**1.2 Summarising and transforming data:**
+
+Take your `aq_clean` dataframe and follow these steps in order:
+
+- Add a new column titled `Temp_Cels` which contains the temperature in Celsius using the `mutate()` function from the `dplyr` package in the `tidyverse.` The data is currently in Fahrenheit.
+
+- Use `group_by()` and `summarise()` to calculate the average `Wind` and `Temp_Cels` per month.
+
+- Which month has the highest average Wind? What is this value? 
+
+- Which month has the median average Temp_Cels? What is this value?
+
+```{r}
+library(tidyverse)
+# write your code answer here
+```
+
+
+::: {.callout-tip title = "Answer" collapse="true"}
+**Answer**:
+# write your text answer here
+:::
+
+**1.3 For-loop operations:**
+
+You have cleaned air‑quality data in a data frame `aq_clean,` and want to quantify the variability of the sample mean of `Solar.R.` In this subquestion, we will use a for-loop to get a bootstrapped standard error for the mean of the variable Solar.R.
+
+- Use the `mean()` function to calculate the sample mean of `aq_clean$Solar.R`.
+
+- Assign `1000` to a numeric vector of length 1 named `n_boot`.
+
+- Pre‑allocate an empty numeric vector `boot_means` of length`n_boot` using the `numeric()` function.
+
+- In a for‑loop over i in 1:`n_boot`:
+
+    - Draw a bootstrap sample of size `length(aq_clean$Solar.R)` using the function `sample()` with replacement from `aq_clean$Solar.R`
+
+    - Compute its mean and store it in `boot_means[i]`
+
+- Finally, use `boot_means` and the  `sd()` function to estimate the boostrapped standard error for the mean of the variable `Solar.R`. 
+
+- Report both the sample mean (calculated in step 1) and its bootstrapped standard error. 
+
+```{r}
+# Number of bootstrap replicates
+# write your code answer here
+n_boot <-
+    # Pre-allocate storage
+    boot_means <-
+    # Loop to generate bootstrap means
+    for (i in 1:n_boot) {
+        # Draw bootstrap sample of the same size as the original vector
+    }
+
+
+# Print the results
+cat("Mean of Solar.R     :", , "\n")
+cat("Bootstrap std. error     :", , "\n")
+```
+
+::: {.callout-tip title = "Answer" collapse="true"}
+**Answer**:
+# write your text answer here
+:::
+
+**1.4 Control flow:**
+
+Use an if/else control flow to label days by whether they exceed the mean `Ozone` level. 
+
+- Recalculate the mean `Ozone` using the current `aq_clean` dataframe.
+
+- Create a new categorical variable in `aq_clean` titled `Ozone_Status` with the label "High" if the row's Ozone exceeds the mean, and "Low" if not. You must use `ifelse()` for this.
+
+- Calculate how many "High" days there are and report this number.
+
+```{r}
+# write your code answer here
+
+```
+
+
+::: {.callout-tip title = "Answer" collapse="true"}
+**Answer**:
+# write your text answer here
+:::
+
+### Question 2: Data Generating Processes (10 Marks)
+
+Imagine you want to examine how study habits affect exam scores among 300 students. However, the distribution of study time is skewed: most students study little, but a few study a lot. The exam scores are generated using the following model: 
+$$
+\text{exam\_score} = 60 + 1.5 \times \text{study\_hours} + \epsilon
+$$
+
+where  $\epsilon \sim \mathcal{N}(0,8)$ represents random noise.
+
+**2.1 Simulate the data:**
+
+- Generate a vector called `study_hours` for 300 students using an exponential distribution, scaled so that most students study between 0 and 20 hours.
+
+- Generate a vector called `group` with two unique values: "online" and "in-person" (150 students each), randomly assigned.
+
+- Generate `exam_score` using the data generating process defined above, adding random noise $\epsilon$ drawn from a normal distribution with mean 0 and standard deviation 8.
+
+- Create a data frame called `exam_data` with the three variables.
+
+```{r}
+# write your code here
+```
+
+
+**2.2 Visualize the data using ggplot2:**
+
+- Create a scatter plot of `exam_score` versus `study_hours`, with points colored by `group`.
+
+- Make sure to use good design choices, such as adequate labels for the axes and an informative title.
+
+```{r}
+# write your code here
+```
+
+
+**2.3 Describe the plot you generated:** 
+
+Describe the plot. Based on the model we used to create exam_score, why is it not surprising that there is no visible difference in exam scores between students attending lectures in person and those watching online?
+
+::: {.callout-tip title = "Answer" collapse="true"}
+**Answer**:
+# write your text answer here
+:::
+
+### Question 3: Linear Regression (10 Marks)
+
+For question 3, you will be working with a dataset about dogs in an animal shelter, waiting to be adopted. The dataset contains some information about dogs' medical history and appearance and a variable `adoption_speed` that indicates how quickly the dog was adopted after being put up for adoption. The higher the value of `adoption_speed`, the quicker the dog was adopted.
+
+The variables in the dataset are:
+
+| Variable        | Description                                                      |
+|-----------------|------------------------------------------------------------------|
+| id              | Unique identifier for each dog                                   |
+| age             | Age of the dog in years                                          |
+| vaccinated      | Whether the dog is vaccinated (1 = Yes, 0 = No)                  |
+| dewormed        | Whether the dog is dewormed (1 = Yes, 0 = No)                    |
+| fur_length      | Length of the dog's fur in centimeters                           |
+| weight          | Weight of the dog in kilograms                                   |
+| adoption_speed  | Speed of adoption (higher values indicate faster adoption)       |
+
+Assume we know the data generating process (DGP) and the **only** causal relationships between the variables are the ones listed below. Unless otherwise noted all of these effects are linear and additive.
+
+- Vaccination affects adoption speed.
+
+- Deworming affects adoption speed.
+
+- Age affects adoption speed.
+
+- Age affects vaccination status.
+
+- Age affects weight.
+
+- Dogs' fur length has a non-linear (quadratic) effect on adoption speed.
+
+**3.1 Estimate a linear regression model**
+
+Read in the dataset `dog_data.csv` and inspect it. Translate the DGP into a linear regression model. Read through the description of the DGP carefully and include all variables in the formula that are necessary, making sure they are specified correctly. Estimate the model using the `lm()` function, naming the lm object `dog_lm`.
+
+```{r}
+# write your code here
+```
+
+
+**3.2 Interpret the Regression Output**
+
+Interpret the coefficient on age, both in terms of magnitude and statistical significance.
+
+::: {.callout-tip title = "Answer" collapse="true"}
+**Answer**:
+# write your text answer here
+:::
+
+### Question 4: Causal Inference (10 Marks)
+
+For question 4 you will continue working with the dogs dataset from the previous question, but now you will estimate the causal effect of vaccination on adoption speed.
+
+**4.1 Causal Graph**
+
+Create a DAG-like graph to illustrate the causal relationships in the data. Use the `ggdag` package to create a DAG that includes all variables in the DGP. You don't need to interpret the output. Tip: use abbreviated variable names (2-4 letters) to make the graph readable.
+
+```{r}
+# write your code here
+```
+
+
+**4.2 Balance Table**
+
+Create a balance table for the predictor variables in your model and interpret the results. You should also draw on your knowledge about the DGP when interpreting the balance table. (Tip: if you use `modelsummary::datasummary_balance()` and get an error when compiling the quarto document with the balance table, specifying the option `output = "markdown"` may fix the error.) 
+
+```{r}
+# write your code here
+```
+
+
+::: {.callout-tip title = "Answer" collapse="true"}
+**Answer**:
+# write your text answer here
+:::
+
+**4.3 Causal Effect of Vaccination**
+
+Based on your knowledge of the DGP, estimate a model that only includes the variables necessary to identify the effect of vaccination on adoption speed. Explain why you specified the model this way. Finally, calculate 95% confidence intervals for the effect of vaccination on adoption speed and interpret them.
+
+```{r}
+# write your code here
+```
+
+::: {.callout-tip title = "Answer" collapse="true"}
+**Answer**:
+# write your text answer here
+:::
