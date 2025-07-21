@@ -2,6 +2,8 @@
 
 This repo contains the two files needed to complete the midterm assignment, the .qmd file and the .csv file. Please review the following instructions carefully.
 
+If you have any public questions about the assignment, please post them publicly [as an issue](https://github.com/me314-lse/midterm/issues). Do not post personal information in an issue.
+
 ## Submission Instructions
 
 This assignment is due **Wednesday 23rd of July 2025 at 9am**:
