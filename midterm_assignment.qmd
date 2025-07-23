@@ -1,9 +1,13 @@
+work:
+
 ---
 title: "Mid-Term Assignment"
 subtitle: "LSE ME314: Introduction to Data Science and Machine Learning"
 date-modified: "21 July 2025" 
 toc: true
-format: html
+format:
+  html:
+    embed-resources: true
 execute:
   echo: true
   eval: true
